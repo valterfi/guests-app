@@ -1,0 +1,63 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title"
+        [(ngModel)]="title"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchTitle()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Guests List</h4>
+    <ul class="mb-3 list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let guest of guests; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveGuest(guest, i)"
+      >
+        {{ guest.title }}
+      </li>
+    </ul>
+
+    <button class="btn btn-danger" (click)="removeAllGuests()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentGuest">
+      <h4>Guest</h4>
+      <div>
+        <label><strong>Title:</strong></label> {{ currentGuest.title }}
+      </div>
+      <div>
+        <label><strong>Description:</strong></label>
+        {{ currentGuest.description }}
+      </div>
+      <div>
+        <label><strong>Status:</strong></label>
+        {{ currentGuest.published ? "Published" : "Pending" }}
+      </div>
+
+      <a class="btn btn-warning" routerLink="/guests/{{ currentGuest.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentGuest">
+      <br />
+      <p>Please click on a Guest...</p>
+    </div>
+  </div>
+</div>
