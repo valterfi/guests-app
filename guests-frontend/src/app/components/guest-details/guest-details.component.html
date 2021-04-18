@@ -3,45 +3,45 @@
     <h4>Guest</h4>
     <form>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="name">Name</label>
         <input
           type="text"
           class="form-control"
-          id="title"
-          [(ngModel)]="currentGuest.title"
-          name="title"
+          id="name"
+          [(ngModel)]="currentGuest.name"
+          name="name"
         />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="email">Email</label>
         <input
           type="text"
           class="form-control"
-          id="description"
-          [(ngModel)]="currentGuest.description"
-          name="description"
+          id="email"
+          [(ngModel)]="currentGuest.email"
+          name="email"
         />
       </div>
 
       <div class="form-group">
         <label><strong>Status:</strong></label>
-        {{ currentGuest.published ? "Published" : "Pending" }}
+        {{ currentGuest.confirmed ? "Confirmed" : "Pending" }}
       </div>
     </form>
 
     <button
       class="btn btn-primary mr-2"
-      *ngIf="currentGuest.published"
-      (click)="updatePublished(false)"
+      *ngIf="currentGuest.confirmed"
+      (click)="updateConfirmed(false)"
     >
-      UnPublish
+      Not Confirmed
     </button>
     <button
-      *ngIf="!currentGuest.published"
+      *ngIf="!currentGuest.confirmed"
       class="btn btn-primary mr-2"
-      (click)="updatePublished(true)"
+      (click)="updateConfirmed(true)"
     >
-      Publish
+      Confirm
     </button>
 
     <button class="btn btn-danger mr-2" (click)="deleteGuest()">

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.valterfi.guests.model.Guest;
 
 public interface GuestRepository extends JpaRepository<Guest, Long> {
-  List<Guest> findByPublished(boolean published);
+  List<Guest> findByConfirmed(boolean confirmed);
 
-  List<Guest> findByTitleContaining(String title);
+  List<Guest> findByNameContaining(String name);
 }

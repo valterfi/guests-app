@@ -33,17 +33,17 @@ export class GuestDetailsComponent implements OnInit {
         });
   }
 
-  updatePublished(status): void {
+  updateConfirmed(status): void {
     const data = {
-      title: this.currentGuest.title,
-      description: this.currentGuest.description,
-      published: status
+      name: this.currentGuest.name,
+      email: this.currentGuest.email,
+      confirmed: status
     };
 
     this.guestService.update(this.currentGuest.id, data)
       .subscribe(
         response => {
-          this.currentGuest.published = status;
+          this.currentGuest.confirmed = status;
           console.log(response);
         },
         error => {

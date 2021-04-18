@@ -1,5 +1,7 @@
 package com.valterfi.guests.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,56 +12,69 @@ public class Guest {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "title")
-	private String title;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "email")
+	private String email;
 
-	@Column(name = "published")
-	private boolean published;
+	@Column(name = "confirmed")
+	private boolean confirmed;
+
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date creationDateTime;
 
 	public Guest() {
 
 	}
 
-	public Guest(String title, String description, boolean published) {
-		this.title = title;
-		this.description = description;
-		this.published = published;
+	public Guest(String name, String email, boolean confirmed) {
+		this.name = name;
+		this.email = email;
+		this.confirmed = confirmed;
+		this.creationDateTime = new Date();
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public boolean isPublished() {
-		return published;
+	public boolean isConfirmed() {
+		return confirmed;
 	}
 
-	public void setPublished(boolean isPublished) {
-		this.published = isPublished;
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+
+	public Date getCreationDateTime() {
+		return creationDateTime;
+	}
+
+	public void setCreationDateTime(Date creationDateTime) {
+		this.creationDateTime = creationDateTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Guest [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
+		return "Guest [id=" + id + ", name=" + name + ", email=" + email + ", confirmed=" + confirmed
+				+ ", creationDateTime=" + creationDateTime + "]";
 	}
 
 }

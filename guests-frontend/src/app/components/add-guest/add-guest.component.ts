@@ -8,9 +8,9 @@ import { GuestService } from 'src/app/services/guest.service';
 })
 export class AddGuestComponent implements OnInit {
   guest = {
-    title: '',
-    description: '',
-    published: false
+    name: '',
+    email: '',
+    confirmed: false
   };
   submitted = false;
 
@@ -21,8 +21,8 @@ export class AddGuestComponent implements OnInit {
 
   saveGuest(): void {
     const data = {
-      title: this.guest.title,
-      description: this.guest.description
+      name: this.guest.name,
+      email: this.guest.email
     };
 
     this.guestService.create(data)
@@ -39,9 +39,9 @@ export class AddGuestComponent implements OnInit {
   newGuest(): void {
     this.submitted = false;
     this.guest = {
-      title: '',
-      description: '',
-      published: false
+      name: '',
+      email: '',
+      confirmed: false
     };
   }
 

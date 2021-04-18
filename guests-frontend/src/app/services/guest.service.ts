@@ -35,7 +35,7 @@ export class GuestService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title): Observable<any> {
-    return this.http.get(`${baseUrl}?title=${title}`);
+  findByName(name): Observable<any> {
+    return this.http.get(`${baseUrl}?name=${name}`);
   }
 }

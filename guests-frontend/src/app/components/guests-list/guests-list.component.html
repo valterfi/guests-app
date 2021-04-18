@@ -4,14 +4,14 @@
       <input
         type="text"
         class="form-control"
-        placeholder="Search by title"
-        [(ngModel)]="title"
+        placeholder="Search by name"
+        [(ngModel)]="name"
       />
       <div class="input-group-append">
         <button
           class="btn btn-outline-secondary"
           type="button"
-          (click)="searchTitle()"
+          (click)="searchName()"
         >
           Search
         </button>
@@ -27,7 +27,7 @@
         [class.active]="i == currentIndex"
         (click)="setActiveGuest(guest, i)"
       >
-        {{ guest.title }}
+        {{ guest.name }}
       </li>
     </ul>
 
@@ -39,15 +39,15 @@
     <div *ngIf="currentGuest">
       <h4>Guest</h4>
       <div>
-        <label><strong>Title:</strong></label> {{ currentGuest.title }}
+        <label><strong>Name:</strong></label> {{ currentGuest.name }}
       </div>
       <div>
-        <label><strong>Description:</strong></label>
-        {{ currentGuest.description }}
+        <label><strong>Email:</strong></label>
+        {{ currentGuest.email }}
       </div>
       <div>
         <label><strong>Status:</strong></label>
-        {{ currentGuest.published ? "Published" : "Pending" }}
+        {{ currentGuest.confirmed ? "Confirmed" : "Pending" }}
       </div>
 
       <a class="btn btn-warning" routerLink="/guests/{{ currentGuest.id }}">

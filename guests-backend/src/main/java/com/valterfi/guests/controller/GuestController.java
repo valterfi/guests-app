@@ -30,64 +30,64 @@ public class GuestController {
 	GuestRepository guestRepository;
 
 	@GetMapping("/guests")
-	public ResponseEntity<List<Guest>> getAllTutorials(@RequestParam(required = false) String title) {
+	public ResponseEntity<List<Guest>> getAllGuests(@RequestParam(required = false) String name) {
 		try {
-			List<Guest> tutorials = new ArrayList<Guest>();
+			List<Guest> guests = new ArrayList<Guest>();
 
-			if (title == null)
-				guestRepository.findAll().forEach(tutorials::add);
+			if (name == null)
+				guestRepository.findAll().forEach(guests::add);
 			else
-				guestRepository.findByTitleContaining(title).forEach(tutorials::add);
+				guestRepository.findByNameContaining(name).forEach(guests::add);
 
-			if (tutorials.isEmpty()) {
+			if (guests.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 
-			return new ResponseEntity<>(tutorials, HttpStatus.OK);
+			return new ResponseEntity<>(guests, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/guests/{id}")
-	public ResponseEntity<Guest> getTutorialById(@PathVariable("id") long id) {
-		Optional<Guest> tutorialData = guestRepository.findById(id);
+	public ResponseEntity<Guest> getGuestById(@PathVariable("id") long id) {
+		Optional<Guest> guestData = guestRepository.findById(id);
 
-		if (tutorialData.isPresent()) {
-			return new ResponseEntity<>(tutorialData.get(), HttpStatus.OK);
+		if (guestData.isPresent()) {
+			return new ResponseEntity<>(guestData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@PostMapping("/guests")
-	public ResponseEntity<Guest> createTutorial(@RequestBody Guest tutorial) {
+	public ResponseEntity<Guest> createGuest(@RequestBody Guest guest) {
 		try {
-			Guest _tutorial = guestRepository
-					.save(new Guest(tutorial.getTitle(), tutorial.getDescription(), false));
-			return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+			Guest _guest = guestRepository
+					.save(new Guest(guest.getName(), guest.getEmail(), false));
+			return new ResponseEntity<>(_guest, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/guests/{id}")
-	public ResponseEntity<Guest> updateTutorial(@PathVariable("id") long id, @RequestBody Guest tutorial) {
-		Optional<Guest> tutorialData = guestRepository.findById(id);
+	public ResponseEntity<Guest> updateGuest(@PathVariable("id") long id, @RequestBody Guest guest) {
+		Optional<Guest> guestData = guestRepository.findById(id);
 
-		if (tutorialData.isPresent()) {
-			Guest _tutorial = tutorialData.get();
-			_tutorial.setTitle(tutorial.getTitle());
-			_tutorial.setDescription(tutorial.getDescription());
-			_tutorial.setPublished(tutorial.isPublished());
-			return new ResponseEntity<>(guestRepository.save(_tutorial), HttpStatus.OK);
+		if (guestData.isPresent()) {
+			Guest _guest = guestData.get();
+			_guest.setName(guest.getName());
+			_guest.setEmail(guest.getEmail());
+			_guest.setConfirmed(guest.isConfirmed());
+			return new ResponseEntity<>(guestRepository.save(_guest), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	@DeleteMapping("/guests/{id}")
-	public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
+	public ResponseEntity<HttpStatus> deleteGuest(@PathVariable("id") long id) {
 		try {
 			guestRepository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -97,7 +97,7 @@ public class GuestController {
 	}
 
 	@DeleteMapping("/guests")
-	public ResponseEntity<HttpStatus> deleteAllTutorials() {
+	public ResponseEntity<HttpStatus> deleteAllGuests() {
 		try {
 			guestRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -107,15 +107,15 @@ public class GuestController {
 
 	}
 
-	@GetMapping("/guests/published")
-	public ResponseEntity<List<Guest>> findByPublished() {
+	@GetMapping("/guests/confirmed")
+	public ResponseEntity<List<Guest>> findByConfirmed() {
 		try {
-			List<Guest> tutorials = guestRepository.findByPublished(true);
+			List<Guest> guests = guestRepository.findByConfirmed(true);
 
-			if (tutorials.isEmpty()) {
+			if (guests.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(tutorials, HttpStatus.OK);
+			return new ResponseEntity<>(guests, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

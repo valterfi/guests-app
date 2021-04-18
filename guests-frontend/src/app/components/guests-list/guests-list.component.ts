@@ -11,7 +11,7 @@ export class GuestsListComponent implements OnInit {
   guests: any;
   currentGuest = null;
   currentIndex = -1;
-  title = '';
+  name = '';
 
   constructor(private guestService: GuestService) { }
 
@@ -54,8 +54,8 @@ export class GuestsListComponent implements OnInit {
         });
   }
 
-  searchTitle(): void {
-    this.guestService.findByTitle(this.title)
+  searchName(): void {
+    this.guestService.findByName(this.name)
       .subscribe(
         data => {
           this.guests = data;
